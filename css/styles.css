@@ -1,0 +1,20 @@
+.gallery {
+    list-style: none;
+    padding: 24px 156px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px 24px;
+}
+
+.gallery-image {
+    width: 360px;
+    height: 200px;
+}
+
+.gallery-image:hover {
+    cursor: url('../img/bxs_hand-down.svg'), pointer;
+    transform: scale(1.025);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
