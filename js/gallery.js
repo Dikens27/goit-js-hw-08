@@ -75,7 +75,7 @@ gallery.innerHTML = images.reduce((html, image) => html + `
             data-source="${image.original}" 
             alt="${image.description}" 
         />
-    <a/>
+    </a>
     </li>
 `, "");
 
@@ -84,16 +84,22 @@ gallery.addEventListener("click", (event) => {
 
     const clickOnImg = event.target.dataset.source;
 
+    function createEvent(event) {
+            if (event.key === "Escape") {
+            this.instance.close();
+            document.removeEventListener("keydown", createEvent);
+        }
+    };
     if (clickOnImg) {
-         console.log(clickOnImg);
-    }
 
     const modal = basicLightbox.create(`
        <img wight="1400" height="900" src="${clickOnImg}"/>
-       `, onShow: (instance) => { },
-        onClose: (instance) => {
-
-        }).show();
-    
+    //    `, {
+        onShow: (instance) => {
+            document.addEventListener("keydown", createEvent.bind({ instance }));
+        }, onClose: () => {
+            document.removeEventListener("keydown", createEvent);
+        }}).show();
+    }
 })
 
