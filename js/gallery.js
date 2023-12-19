@@ -81,25 +81,28 @@ gallery.innerHTML = images.reduce((html, image) => html + `
 
 gallery.addEventListener("click", (event) => {
     event.preventDefault();
+    
+  if (event.target.nodeName !== "IMG") return;
 
-    const clickOnImg = event.target.dataset.source;
+  const clickOnImg = event.target.dataset.source;
+  const alt = event.target.alt;
 
     function createEvent(event) {
-            if (event.key === "Escape") {
-            this.instance.close();
-            document.removeEventListener("keydown", createEvent);
-        }
+      if (event.key !== "Escape") return;
+      modal.close();
     };
-    if (clickOnImg) {
 
     const modal = basicLightbox.create(`
-       <img wight="1400" height="900" src="${clickOnImg}"/>
+       <img widht="1400" height="900" src="${clickOnImg}" alt="${alt}"/>
     //    `, {
-        onShow: (instance) => {
-            document.addEventListener("keydown", createEvent.bind({ instance }));
+        onShow: () => {
+            document.addEventListener("keydown", createEvent);
         }, onClose: () => {
             document.removeEventListener("keydown", createEvent);
-        }}).show();
-    }
+      }
+    });
+    
+    modal.show();
+
 })
 
