@@ -87,18 +87,18 @@ gallery.addEventListener("click", (event) => {
   const clickOnImg = event.target.dataset.source;
   const alt = event.target.alt;
 
-    function createEvent(event) {
+    function handleEscapeKeyPress(event) {
       if (event.key !== "Escape") return;
       modal.close();
     };
 
     const modal = basicLightbox.create(`
-       <img widht="1400" height="900" src="${clickOnImg}" alt="${alt}"/>
-    //    `, {
+       <img width="1400" height="900" src="${clickOnImg}" alt="${alt}"/>
+       `, {
         onShow: () => {
-            document.addEventListener("keydown", createEvent);
+            document.addEventListener("keydown", handleEscapeKeyPress);
         }, onClose: () => {
-            document.removeEventListener("keydown", createEvent);
+            document.removeEventListener("keydown", handleEscapeKeyPress);
       }
     });
     
